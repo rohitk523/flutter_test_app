@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:test_app/Pages/gamespage.dart';
+import 'package:test_app/Pages/loginpage.dart';
 
 class DrawerForOS extends StatelessWidget {
   const DrawerForOS({super.key});
@@ -29,7 +31,8 @@ class DrawerForOS extends StatelessWidget {
             leading: Icon(Icons.gamepad),
             title: Text('Games'),
             onTap: () {
-              Navigator.pushNamed(context, '/games');
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => GamesPage()));
             },
           ),
           ListTile(
@@ -41,7 +44,14 @@ class DrawerForOS extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginPage(),
+                ),
+              );
+            },
           ),
         ],
       ),
