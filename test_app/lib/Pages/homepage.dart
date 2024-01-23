@@ -1,5 +1,5 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:test_app/functions/mygridpage.dart';
 import 'package:test_app/functions/randomgraphs.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,10 +10,10 @@ class HomePage extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Column(
+        body: ListView(
           children: [
             RandomPieChart(),
-            MyGridPage(),
+            ProgressBarsForLabels(),
           ],
         ),
       ),

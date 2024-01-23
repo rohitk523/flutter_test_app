@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/Pages/HomePage.dart';
+import 'package:test_app/Pages/homepage.dart';
 import 'package:test_app/Pages/eventpage.dart';
 import 'package:test_app/Pages/settingspage.dart';
 import 'package:test_app/functions/drawerforos.dart';
@@ -21,9 +21,9 @@ class _HomeBottomNavigationBarState extends State<HomeBottomNavigationBar> {
   }
 
   final List<Widget> _pages = [
-    HomePage(),
-    EventPage(),
-    SettingsPage(),
+    const HomePage(),
+    const EventPage(),
+    const SettingsPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _HomeBottomNavigationBarState extends State<HomeBottomNavigationBar> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Test'),
+          title: const Text('Test'),
         ),
         body: _pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
@@ -55,7 +55,7 @@ class _HomeBottomNavigationBarState extends State<HomeBottomNavigationBar> {
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
         ),
-        endDrawer: DrawerForOS(),
+        endDrawer: const DrawerForOS(),
 
         //floatingActionButton: FloatingButtonExample(),
         //floatingActionButtonLocation:

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/Pages/homebottomnavigationbar.dart';
-import 'package:test_app/components/dialogcomponent.dart';
 import 'package:test_app/components/mytextfield.dart';
 
 class LoginPage extends StatefulWidget {
@@ -24,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -32,13 +31,13 @@ class _LoginPageState extends State<LoginPage> {
                 controller: _usernameController,
                 hintText: 'username',
                 obscureText: false,
-                prefixIcon: Icon(Icons.person)),
+                prefixIcon: const Icon(Icons.person)),
             const SizedBox(height: 16.0),
             MyTextField(
                 controller: _passwordController,
                 hintText: 'password',
                 obscureText: true,
-                prefixIcon: Icon(Icons.password)),
+                prefixIcon: const Icon(Icons.password)),
             const SizedBox(height: 32.0),
             ElevatedButton(
               child: const Text('Login'),
@@ -52,12 +51,12 @@ class _LoginPageState extends State<LoginPage> {
                   showDialog<String>(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: Text('Login'),
-                      content: Text('Successful'),
+                      title: const Text('Login'),
+                      content: const Text('Successful'),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () => Navigator.pop(context),
-                          child: Text('OK'),
+                          child: const Text('OK'),
                         ),
                       ],
                     ),
@@ -65,17 +64,18 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => HomeBottomNavigationBar()));
+                          builder: (context) =>
+                              const HomeBottomNavigationBar()));
                 } else {
                   showDialog<String>(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: Text('Login'),
-                      content: Text('Failed'),
+                      title: const Text('Login'),
+                      content: const Text('Failed'),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () => Navigator.pop(context),
-                          child: Text('OK'),
+                          child: const Text('OK'),
                         ),
                       ],
                     ),

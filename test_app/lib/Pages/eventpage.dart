@@ -5,6 +5,6 @@ class EventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Event Page');
+    return const Text('Event Page');
   }
 }

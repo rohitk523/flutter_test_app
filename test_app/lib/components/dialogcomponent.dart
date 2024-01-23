@@ -23,8 +23,8 @@ class DialogExample extends StatelessWidget {
               onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => HomeBottomNavigationBar())),
-              child: Text('OK'),
+                      builder: (context) => const HomeBottomNavigationBar())),
+              child: const Text('OK'),
             ),
           ],
         ),

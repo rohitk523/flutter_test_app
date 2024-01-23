@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:pie_chart/pie_chart.dart';
 import 'dart:math';
 
 class RandomPieChart extends StatelessWidget {
-  RandomPieChart({super.key});
   final Random random = Random();
 
-  List<PieChartSectionData> generateRandomData() {
-    List<PieChartSectionData> data = [];
+  RandomPieChart({super.key});
+  Map<String, double> generateRandomData() {
+    Map<String, double> data = {};
+
+    final socialMList = ['Instagram', 'X', 'Reddit', 'Meta', 'YouTube'];
 
     for (int i = 0; i < 5; i++) {
-      data.add(
-        PieChartSectionData(
-          value: random.nextDouble() * 100,
-          title: '${(random.nextDouble() * 100).toStringAsFixed(2)}%',
-          color: Color.fromARGB(
-            random.nextInt(256),
-            random.nextInt(256),
-            random.nextInt(256),
-            random.nextInt(256),
-          ),
-          radius: 80,
-        ),
-      );
+      double randomValue = random.nextDouble() * 100;
+      data[socialMList[i]] = randomValue;
     }
 
     return data;
@@ -30,39 +21,33 @@ class RandomPieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
-      child: PieChart(
-        PieChartData(
-          sectionsSpace: 0,
-          centerSpaceRadius: 0,
-          sections: generateRandomData(),
+    return Column(
+      children: [
+        PieChart(
+          dataMap: generateRandomData(),
+          chartRadius: MediaQuery.of(context).size.width / 2,
+          chartType: ChartType.disc,
+          chartValuesOptions: const ChartValuesOptions(
+            showChartValueBackground: true,
+          ),
         ),
-      ),
+      ],
     );
   }
 }
 
-class RandomBarGraph extends StatelessWidget {
-  RandomBarGraph({super.key});
+class ProgressBarsForLabels extends StatelessWidget {
   final Random random = Random();
 
-  List<BarChartGroupData> generateRandomData() {
-    List<BarChartGroupData> data = [];
+  ProgressBarsForLabels({super.key});
+  Map<String, double> generateRandomData() {
+    Map<String, double> data = {};
+
+    final socialMList = ['Instagram', 'X', 'Reddit', 'Meta', 'YouTube'];
 
     for (int i = 0; i < 5; i++) {
-      data.add(
-        BarChartGroupData(
-          x: i,
-          barsSpace: 4,
-          barRods: [
-            BarChartRodData(
-                fromY: random.nextDouble() * 100,
-                toY: 0, // Set the toY value to 0 for a simple bar chart
-                color: Colors.amber),
-          ],
-        ),
-      );
+      double randomValue = random.nextDouble() * 100;
+      data[socialMList[i]] = randomValue;
     }
 
     return data;
@@ -70,13 +55,51 @@ class RandomBarGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 2,
-      child: BarChart(
-        BarChartData(
-          barGroups: generateRandomData(),
-        ),
+    final randomData = generateRandomData();
+    return SizedBox(
+      height: 400,
+      child: ListView.builder(
+        itemCount: randomData.length,
+        itemBuilder: (context, index) {
+          String label = randomData.keys.toList()[index];
+          int progress = randomData[label]!.round();
+
+          return Column(
+            children: [
+              ListTile(
+                title: Text(label),
+                subtitle: LinearProgressIndicator(
+                  value: progress.toDouble(),
+                  backgroundColor: Colors.grey[300],
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    _getColor(index), // Use the same color as the pie chart
+                  ),
+                ),
+              ),
+              Text('$progress')
+            ],
+          );
+        },
       ),
     );
+  }
+
+  Color _getColor(int index) {
+    // You can customize the color logic based on the index or other conditions
+    // In this example, we use a simple switch statement
+    switch (index) {
+      case 0:
+        return Colors.blue;
+      case 1:
+        return Colors.green;
+      case 2:
+        return Colors.orange;
+      case 3:
+        return Colors.red;
+      case 4:
+        return Colors.purple;
+      default:
+        return Colors.blue;
+    }
   }
 }

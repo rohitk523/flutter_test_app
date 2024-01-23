@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:test_app/Pages/eventpage.dart';
 import 'package:test_app/Pages/gamespage.dart';
 import 'package:test_app/Pages/homebottomnavigationbar.dart';
-import 'package:test_app/Pages/loginpage.dart';
 import 'package:test_app/Pages/settingspage.dart';
 
 void main() {
@@ -17,13 +16,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/home',
       routes: {
-        '/': (context) => LoginPage(),
-        '/home': (context) => HomeBottomNavigationBar(),
-        '/event': (context) => EventPage(),
-        '/settings': (context) => SettingsPage(),
-        '/games': (context) => GamesPage()
+        //'/': (context) => LoginPage(),
+        '/home': (context) => const HomeBottomNavigationBar(),
+        '/event': (context) => const EventPage(),
+        '/settings': (context) => const SettingsPage(),
+        '/games': (context) => const GamesPage()
       },
     );
   }

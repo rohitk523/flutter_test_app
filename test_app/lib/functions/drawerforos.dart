@@ -15,40 +15,37 @@ class DrawerForOS extends StatelessWidget {
             accountName: Text('Rohit Kale'),
             accountEmail: Text('rohitkale523@gmail.com'),
             currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Icon(
-                Icons.person,
-                color: Colors.black,
-              ),
+              backgroundImage: NetworkImage(
+                  'https://m.media-amazon.com/images/I/61fkO2lJNeL._SL1500_.jpg'),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
+            leading: const Icon(Icons.home),
+            title: const Text('Home'),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.gamepad),
-            title: Text('Games'),
+            leading: const Icon(Icons.gamepad),
+            title: const Text('Games'),
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => GamesPage()));
+                  MaterialPageRoute(builder: (context) => const GamesPage()));
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
             onTap: () {},
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text('Logout'),
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text('Logout'),
             onTap: () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => LoginPage(),
+                  builder: (context) => const LoginPage(),
                 ),
               );
             },
