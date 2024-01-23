@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/functions/bottomnavigator.dart';
-import 'package:test_app/functions/floatingbuttton.dart';
-import 'package:test_app/functions/mygridpage.dart';
-import 'package:test_app/functions/randomgraphs.dart';
-import 'package:test_app/functions/searchingfield.dart';
+import 'package:test_app/Pages/eventpage.dart';
+import 'package:test_app/Pages/homepage.dart';
+import 'package:test_app/Pages/loginpage.dart';
+import 'package:test_app/Pages/settingspage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,21 +16,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          appBar: AppBar(
-              title: const Center(child: Text('TestApp')),
-              backgroundColor: Colors.blue),
-          body: Column(
-            children: [
-              const SearchingField(),
-              MyGridPage(),
-              RandomPieChart(),
-            ],
-          ),
-          bottomNavigationBar: BottomNavigationBarExample(),
-          floatingActionButton: FloatingButtonExample(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoginPage(),
+        '/home': (context) => HomePage(),
+        '/event': (context) => EventPage(),
+        '/settings': (context) => SettingsPage(),
+      },
     );
   }
 }

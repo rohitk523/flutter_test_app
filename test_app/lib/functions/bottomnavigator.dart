@@ -28,16 +28,12 @@ class _BottomNavigationBarExampleState
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.school),
-          label: 'School',
+          icon: Icon(Icons.event),
+          label: 'Event',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
+          icon: Icon(Icons.settings),
           label: 'Person',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.accessibility),
-          label: 'Accessibility',
         ),
       ],
       currentIndex: _selectedIndex,
