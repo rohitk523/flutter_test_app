@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/Pages/eventpage.dart';
-import 'package:test_app/Pages/homepage.dart';
+import 'package:test_app/Pages/gamespage.dart';
+import 'package:test_app/Pages/homebottomnavigationbar.dart';
 import 'package:test_app/Pages/loginpage.dart';
 import 'package:test_app/Pages/settingspage.dart';
 
@@ -19,9 +20,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoginPage(),
-        '/home': (context) => HomePage(),
+        '/home': (context) => HomeBottomNavigationBar(),
         '/event': (context) => EventPage(),
         '/settings': (context) => SettingsPage(),
+        '/games': (context) => GamesPage()
       },
     );
   }

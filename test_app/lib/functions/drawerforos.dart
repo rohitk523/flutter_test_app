@@ -9,9 +9,9 @@ class DrawerForOS extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          UserAccountsDrawerHeader(
-            accountName: Text('Your Name'),
-            accountEmail: Text('your.email@example.com'),
+          const UserAccountsDrawerHeader(
+            accountName: Text('Rohit Kale'),
+            accountEmail: Text('rohitkale523@gmail.com'),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(
@@ -23,31 +23,25 @@ class DrawerForOS extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home),
             title: Text('Home'),
-            onTap: () {
-              Navigator.pop(context);
-            },
+            onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.star),
-            title: Text('Favorites'),
+            leading: Icon(Icons.gamepad),
+            title: Text('Games'),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushNamed(context, '/games');
             },
           ),
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'),
-            onTap: () {
-              Navigator.pop(context);
-            },
+            onTap: () {},
           ),
           Divider(),
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
-            onTap: () {
-              Navigator.pop(context);
-            },
+            onTap: () {},
           ),
         ],
       ),
