@@ -11,10 +11,7 @@ class HomePage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: ListView(
-          children: [
-            RandomPieChart(),
-            ProgressBarsForLabels(),
-          ],
+          children: [RandomPieChartWithProgressBars()],
         ),
       ),
     );
