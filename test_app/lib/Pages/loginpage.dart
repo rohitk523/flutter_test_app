@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/Pages/homebottomnavigationbar.dart';
 import 'package:test_app/components/mytextfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+final _firebase = FirebaseAuth.instance;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,6 +15,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _submit() async {
+    final UserCredential = await _firebase.createUserWithEmailAndPassword(
+        email: _usernameController.text, password: _passwordController.text);
+    print(UserCredential);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
               child: const Text('Login'),
               onPressed: () {
                 // Handle login logic here
+                _submit;
                 String username = _usernameController.text;
                 String password = _passwordController.text;
 

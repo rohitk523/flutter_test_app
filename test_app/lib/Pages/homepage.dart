@@ -10,9 +10,7 @@ class HomePage extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: ListView(
-          children: [RandomPieChartWithProgressBars()],
-        ),
+        body: RandomPieChartWithProgressBars(),
       ),
     );
   }

@@ -5,6 +5,8 @@ import 'dart:math';
 class RandomPieChartWithProgressBars extends StatelessWidget {
   final Random random = Random();
 
+  RandomPieChartWithProgressBars({super.key});
+
   Map<String, double> generateRandomData() {
     Map<String, double> data = {};
 
@@ -35,7 +37,7 @@ class RandomPieChartWithProgressBars extends StatelessWidget {
   Widget build(BuildContext context) {
     final randomData = generateRandomData();
 
-    return Container(
+    return SizedBox(
       height: 800,
       child: ListView.builder(
         itemCount: randomData.length + 1, // +1 for the pie chart
@@ -60,17 +62,18 @@ class RandomPieChartWithProgressBars extends StatelessWidget {
             int minutes = (value * 60).round();
 
             return Container(
-              margin: EdgeInsets.symmetric(vertical: 5),
-              decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(20)),
+              margin: const EdgeInsets.symmetric(vertical: 2),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(20)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const Divider(),
                   ListTile(
                     title: Text(
                       label,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14),
                     ),
                     subtitle: LinearProgressIndicator(
                       value: value,
@@ -80,17 +83,18 @@ class RandomPieChartWithProgressBars extends StatelessWidget {
                     ),
                     trailing: Text(
                       '$progress%',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 12),
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(left: 20),
+                    padding: const EdgeInsets.only(left: 20),
                     child: Text(
                       '$minutes min',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 10),
                     ),
                   ),
-                  Divider()
                 ],
               ),
             );
