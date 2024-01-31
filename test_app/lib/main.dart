@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_app/Pages/eventpage.dart';
-import 'package:test_app/Pages/gamespage.dart';
 import 'package:test_app/Pages/homebottomnavigationbar.dart';
-import 'package:test_app/Pages/settingspage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:test_app/functions/loginorsignup.dart';
 import 'firebase_options.dart';
@@ -29,9 +26,9 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, snapshot) {
           if (snapshot.hasData) {
-            return HomeBottomNavigationBar();
+            return const HomeBottomNavigationBar();
           } else {
-            return LoginOrSignUp();
+            return const LoginOrSignUp();
           }
         },
       ),
