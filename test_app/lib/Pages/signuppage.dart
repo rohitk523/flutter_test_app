@@ -89,6 +89,7 @@ class _SignupPageState extends State<SignupPage> {
                   _enteredusername = value!;
                 },
               ),
+              const SizedBox(height: 10.0),
               TextFormField(
                 decoration: InputDecoration(
                   hintText: 'password',
