@@ -1,6 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_app/Pages/gamespage.dart';
-import 'package:test_app/Pages/loginpage.dart';
 
 class DrawerForOS extends StatelessWidget {
   const DrawerForOS({super.key});
@@ -42,12 +42,7 @@ class DrawerForOS extends StatelessWidget {
             leading: const Icon(Icons.exit_to_app),
             title: const Text('Logout'),
             onTap: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
-                ),
-              );
+              FirebaseAuth.instance.signOut();
             },
           ),
         ],

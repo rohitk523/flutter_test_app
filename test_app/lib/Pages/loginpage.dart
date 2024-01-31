@@ -1,25 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/Pages/homebottomnavigationbar.dart';
-import 'package:test_app/components/mytextfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final _firebase = FirebaseAuth.instance;
 
+// ignore: must_be_immutable
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  void Function()? onTap;
+  LoginPage({super.key, required this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final _form = GlobalKey<FormState>();
+  var _enteredusername = '';
+  var _enteredpassword = '';
 
-  Future<void> _submit() async {
-    final UserCredential = await _firebase.createUserWithEmailAndPassword(
-        email: _usernameController.text, password: _passwordController.text);
-    print(UserCredential);
+  void _submit() async {
+    final isValid = _form.currentState!.validate();
+    if (isValid) {
+      _form.currentState!.save();
+      try {
+        await _firebase.signInWithEmailAndPassword(
+          email: _enteredusername,
+          password: _enteredpassword,
+        );
+        // If the login is successful, you can navigate to another page or perform other actions
+        // For example:
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      } catch (error) {
+        // You can display an error message to the user, for example:
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Login failed. Please check your credentials."),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -34,80 +56,90 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            MyTextField(
-                controller: _usernameController,
-                hintText: 'username',
-                obscureText: false,
-                prefixIcon: const Icon(Icons.person)),
-            const SizedBox(height: 16.0),
-            MyTextField(
-                controller: _passwordController,
-                hintText: 'password',
-                obscureText: true,
-                prefixIcon: const Icon(Icons.password)),
-            const SizedBox(height: 32.0),
-            ElevatedButton(
-              child: const Text('Login'),
-              onPressed: () {
-                // Handle login logic here
-                _submit;
-                String username = _usernameController.text;
-                String password = _passwordController.text;
-
-                // Perform authentication, e.g., validate username and password
-                if (username == 'user' && password == 'pass') {
-                  showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: const Text('Login'),
-                      content: const Text('Successful'),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text('OK'),
-                        ),
-                      ],
+        child: Form(
+          key: _form,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: 'username',
+                  fillColor: HexColor("#f0f3f1"),
+                  contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  hintStyle: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: HexColor("#8d8d8d"),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide.none,
+                  ),
+                  prefixIcon: const Icon(Icons.person),
+                  prefixIconColor: HexColor("#4f4f4f"),
+                  filled: true,
+                ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter a valid password';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _enteredusername = value!;
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  hintText: 'password',
+                  fillColor: HexColor("#f0f3f1"),
+                  contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                  hintStyle: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: HexColor("#8d8d8d"),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide.none,
+                  ),
+                  prefixIcon: const Icon(Icons.person),
+                  prefixIconColor: HexColor("#4f4f4f"),
+                  filled: true,
+                ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter a valid password';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _enteredpassword = value!;
+                },
+              ),
+              const SizedBox(height: 32.0),
+              ElevatedButton(onPressed: _submit, child: const Text('Login')),
+              const SizedBox(
+                height: 16,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Not Registered ? '),
+                  GestureDetector(
+                    onTap: () => widget.onTap!(),
+                    child: const Text(
+                      'SignUp',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  );
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const HomeBottomNavigationBar()));
-                } else {
-                  showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: const Text('Login'),
-                      content: const Text('Failed'),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              },
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Not Registered ? '),
-                Text(
-                  'Register Now',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
-          ],
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

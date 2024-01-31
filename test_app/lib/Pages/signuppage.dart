@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/Pages/homebottomnavigationbar.dart';
-import 'package:test_app/components/mytextfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final _firebase = FirebaseAuth.instance;
 
+// ignore: must_be_immutable
 class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+  void Function()? onTap;
+  SignupPage({super.key, required this.onTap});
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -23,9 +23,25 @@ class _SignupPageState extends State<SignupPage> {
     final isValid = _form.currentState!.validate();
     if (isValid) {
       _form.currentState!.save();
-      final usercred = await _firebase.createUserWithEmailAndPassword(
-          email: _enteredusername, password: _enteredpassword);
-      print(usercred);
+      try {
+        await _firebase.createUserWithEmailAndPassword(
+          email: _enteredusername,
+          password: _enteredpassword,
+        );
+
+        // If the login is successful, you can navigate to another page or perform other actions
+        // For example:
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      } catch (error) {
+        // You can display an error message to the user, for example:
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Login failed. Please check your credentials."),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
@@ -64,7 +80,10 @@ class _SignupPageState extends State<SignupPage> {
                   filled: true,
                 ),
                 validator: (value) {
-                  if (value == null || value.trim().isEmpty) ;
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter a valid password';
+                  }
+                  return null;
                 },
                 onSaved: (value) {
                   _enteredusername = value!;
@@ -88,27 +107,33 @@ class _SignupPageState extends State<SignupPage> {
                   filled: true,
                 ),
                 validator: (value) {
-                  if (value == null || value.trim().isEmpty) ;
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter a valid password';
+                  }
+                  return null;
                 },
                 onSaved: (value) {
                   _enteredpassword = value!;
                 },
               ),
               const SizedBox(height: 32.0),
-              ElevatedButton(child: const Text('SignUp'), onPressed: _submit),
+              ElevatedButton(onPressed: _submit, child: const Text('SignUp')),
               const SizedBox(
                 height: 16,
               ),
               const SizedBox(
                 height: 16,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Not Registered ? '),
-                  Text(
-                    'Register Now',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                  const Text('Already have an account ?'),
+                  GestureDetector(
+                    onTap: () => widget.onTap!(),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   )
                 ],
               ),
