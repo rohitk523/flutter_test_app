@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -24,10 +25,15 @@ class _LoginPageState extends State<LoginPage> {
     if (isValid) {
       _form.currentState!.save();
       try {
-        await _firebase.signInWithEmailAndPassword(
+        final userCredential = await _firebase.signInWithEmailAndPassword(
           email: _enteredusername,
           password: _enteredpassword,
         );
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(_enteredusername)
+            .set({'username': "XXX", 'email': _enteredusername});
+
         // If the login is successful, you can navigate to another page or perform other actions
         // For example:
         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
