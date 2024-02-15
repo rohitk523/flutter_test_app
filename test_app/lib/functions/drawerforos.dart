@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_app/Pages/gamespage.dart';
+import 'package:test_app/Pages/chatPage.dart';
 
 class DrawerForOS extends StatelessWidget {
   const DrawerForOS({super.key});
@@ -25,17 +25,17 @@ class DrawerForOS extends StatelessWidget {
             onTap: () {},
           ),
           ListTile(
-            leading: const Icon(Icons.gamepad),
-            title: const Text('Games'),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const GamesPage()));
-            },
-          ),
-          ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(Icons.message),
+            title: const Text('help'),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ChatScreen()));
+            },
           ),
           const Divider(),
           ListTile(
