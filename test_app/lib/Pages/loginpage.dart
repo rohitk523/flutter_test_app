@@ -17,7 +17,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _form = GlobalKey<FormState>();
-  var _enteredusername = '';
+  var _enteredemail = '';
   var _enteredpassword = '';
 
   void _submit() async {
@@ -26,13 +26,16 @@ class _LoginPageState extends State<LoginPage> {
       _form.currentState!.save();
       try {
         final userCredential = await _firebase.signInWithEmailAndPassword(
-          email: _enteredusername,
+          email: _enteredemail,
           password: _enteredpassword,
         );
         await FirebaseFirestore.instance
             .collection('users')
-            .doc(_enteredusername)
-            .set({'username': "XXX", 'email': _enteredusername});
+            .doc(_enteredemail)
+            .set({
+          'username': _enteredemail.split('@')[0],
+          'email': _enteredemail
+        });
 
         // If the login is successful, you can navigate to another page or perform other actions
         // For example:
@@ -91,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 },
                 onSaved: (value) {
-                  _enteredusername = value!;
+                  _enteredemail = value!;
                 },
               ),
               const SizedBox(height: 10.0),

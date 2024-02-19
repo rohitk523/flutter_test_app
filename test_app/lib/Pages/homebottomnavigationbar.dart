@@ -55,7 +55,7 @@ class _HomeBottomNavigationBarState extends State<HomeBottomNavigationBar> {
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
         ),
-        endDrawer: const DrawerForOS(),
+        endDrawer: DrawerForOS(),
 
         //floatingActionButton: FloatingButtonExample(),
         //floatingActionButtonLocation:

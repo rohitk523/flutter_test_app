@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ChatMessages extends StatelessWidget {
-  const ChatMessages({Key? key});
+  const ChatMessages({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class ChatMessages extends StatelessWidget {
         return ListView.builder(
           itemCount: loadedMessages.length,
           itemBuilder: (context, index) => Card(
-            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             elevation: 3,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
@@ -41,7 +41,7 @@ class ChatMessages extends StatelessWidget {
             child: ListTile(
               title: Text(
                 loadedMessages[index].data()['text'],
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
               // You can add more styling or additional widgets here
               // For example, you can add an icon to indicate message sender or timestamp

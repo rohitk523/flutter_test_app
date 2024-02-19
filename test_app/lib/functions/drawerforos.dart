@@ -3,18 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:test_app/Pages/chatPage.dart';
 
 class DrawerForOS extends StatelessWidget {
-  const DrawerForOS({super.key});
-
   @override
   Widget build(BuildContext context) {
+    String? username = FirebaseAuth.instance.currentUser?.email?.split('@')[0];
+    final user = FirebaseAuth.instance.currentUser?.email;
+    // Move the username initialization inside the build method
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const UserAccountsDrawerHeader(
-            accountName: Text('Rohit Kale'),
-            accountEmail: Text('rohitkale523@gmail.com'),
-            currentAccountPicture: CircleAvatar(
+          UserAccountsDrawerHeader(
+            accountName: Text(
+                username ?? 'Unknown'), // Handle case when username is null
+            accountEmail: Text(user ?? 'Unknown'),
+            currentAccountPicture: const CircleAvatar(
               backgroundImage: NetworkImage(
                   'https://m.media-amazon.com/images/I/61fkO2lJNeL._SL1500_.jpg'),
             ),
