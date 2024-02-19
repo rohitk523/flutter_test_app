@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:test_app/Pages/chatPage.dart';
 
 class DrawerForOS extends StatelessWidget {
+  const DrawerForOS({super.key});
+
   @override
   Widget build(BuildContext context) {
     String? username = FirebaseAuth.instance.currentUser?.email?.split('@')[0];
