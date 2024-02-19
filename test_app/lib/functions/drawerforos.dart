@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_app/Pages/chatPage.dart';
+import 'package:test_app/Pages/settingspage.dart';
 
 class DrawerForOS extends StatelessWidget {
   const DrawerForOS({super.key});
@@ -32,7 +33,12 @@ class DrawerForOS extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SettingsPage()));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.message),
