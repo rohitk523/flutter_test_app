@@ -25,17 +25,11 @@ class _LoginPageState extends State<LoginPage> {
     if (isValid) {
       _form.currentState!.save();
       try {
+        // ignore: unused_local_variable
         final userCredential = await _firebase.signInWithEmailAndPassword(
           email: _enteredemail,
           password: _enteredpassword,
         );
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(_enteredemail)
-            .set({
-          'username': _enteredemail.split('@')[0],
-          'email': _enteredemail
-        });
 
         // If the login is successful, you can navigate to another page or perform other actions
         // For example:

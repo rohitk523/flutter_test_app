@@ -30,14 +30,10 @@ class _SignupPageState extends State<SignupPage> {
           password: _enteredpassword,
         );
 
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(_enteredemail)
-            .set({
+        await FirebaseFirestore.instance.collection('users').add({
           'username': _enteredemail.split('@')[0],
-          'email': _enteredemail
+          'email': _enteredemail,
         });
-
         // If the login is successful, you can navigate to another page or perform other actions
         // For example:
         // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeScreen()));
