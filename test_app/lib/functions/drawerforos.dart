@@ -73,6 +73,13 @@ class DrawerForOS extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const ChatScreen()));
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.gamepad),
+            title: const Text('Game'),
+            onTap: () {
+              maingame();
+            },
+          ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.exit_to_app),
@@ -81,13 +88,6 @@ class DrawerForOS extends StatelessWidget {
               FirebaseAuth.instance.signOut();
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.gamepad),
-            title: const Text('Game'),
-            onTap: () {
-              maingame();
-            },
-          )
         ],
       ),
     );
