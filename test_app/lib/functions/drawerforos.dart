@@ -2,6 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_app/Pages/chatPage.dart';
 import 'package:test_app/Pages/settingspage.dart';
+import 'package:flame/flame.dart';
+import 'package:flame/game.dart';
+import 'package:test_app/game/flappy_bird_game.dart';
+import 'package:test_app/Pages/main_menu_screen.dart';
+import 'package:flutter/services.dart';
+import '../../Pages/game_over_screen.dart';
 
 class DrawerForOS extends StatelessWidget {
   const DrawerForOS({super.key});
@@ -11,6 +17,25 @@ class DrawerForOS extends StatelessWidget {
     String? username = FirebaseAuth.instance.currentUser?.email?.split('@')[0];
     final user = FirebaseAuth.instance.currentUser?.email;
     // Move the username initialization inside the build method
+
+    Future<void> maingame() async {
+      SystemChrome.setSystemUIOverlayStyle(
+          const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+      WidgetsFlutterBinding.ensureInitialized();
+      await Flame.device.fullScreen();
+
+      final game = FlappyBirdGame();
+      runApp(
+        GameWidget(
+          game: game,
+          initialActiveOverlays: const [MainMenuScreen.id],
+          overlayBuilderMap: {
+            'mainMenu': (context, _) => MainMenuScreen(game: game),
+            'gameOver': (context, _) => GameOverScreen(game: game),
+          },
+        ),
+      );
+    }
 
     return Drawer(
       child: ListView(
@@ -56,6 +81,13 @@ class DrawerForOS extends StatelessWidget {
               FirebaseAuth.instance.signOut();
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.gamepad),
+            title: const Text('Game'),
+            onTap: () {
+              maingame();
+            },
+          )
         ],
       ),
     );
